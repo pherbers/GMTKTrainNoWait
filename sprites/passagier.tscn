@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bjvwhrgfciguj"]
+
+[ext_resource type="Script" uid="uid://bisywt7bp5ljh" path="res://passagier.gd" id="1_4lrl6"]
+[ext_resource type="SpriteFrames" uid="uid://xlroxwqmj5up" path="res://sprites/crewmate_anim.tres" id="2_xr7cl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lrl6"]
+radius = 8.0
+
+[node name="Passagier" type="RigidBody2D" unique_id=280535458]
+collision_layer = 6
+collision_mask = 3
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 64.0
+script = ExtResource("1_4lrl6")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=2079182370]
+position = Vector2(0, -5)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_xr7cl")
+animation = &"standing_calm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=745952115]
+shape = SubResource("CircleShape2D_4lrl6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=951112040]
+path_desired_distance = 10.0
+
+[node name="Timer" type="Timer" parent="NavigationAgent2D" unique_id=879912143]
+autostart = true
+
+[connection signal="timeout" from="NavigationAgent2D/Timer" to="." method="repath"]
