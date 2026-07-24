@@ -87,7 +87,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fro00")
 }],
-"loop": true,
+"loop": 1,
 "name": &"bang_door",
 "speed": 5.0
 }, {
@@ -110,7 +110,7 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -121,7 +121,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3elub")
 }],
-"loop": true,
+"loop": 1,
 "name": &"push_obj",
 "speed": 5.0
 }, {
@@ -141,7 +141,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hxbxk")
 }],
-"loop": true,
+"loop": 1,
 "name": &"running_calm",
 "speed": 5.0
 }, {
@@ -152,7 +152,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gljct")
 }],
-"loop": true,
+"loop": 1,
 "name": &"running_panic",
 "speed": 5.0
 }, {
@@ -160,7 +160,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jd81t")
 }],
-"loop": true,
+"loop": 1,
 "name": &"standing_calm",
 "speed": 5.0
 }, {
@@ -171,7 +171,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lmt0n")
 }],
-"loop": true,
+"loop": 1,
 "name": &"standing_panic",
 "speed": 5.0
 }]

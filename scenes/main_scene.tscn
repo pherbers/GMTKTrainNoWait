@@ -1,0 +1,558 @@
+[gd_scene format=3 uid="uid://b8eqje04swgoh"]
+
+[ext_resource type="Script" uid="uid://bmkphy85h7vmr" path="res://scripts/game.gd" id="1_gubc5"]
+[ext_resource type="Script" uid="uid://c2cpsitve2njc" path="res://scripts/player.gd" id="2_rt2n2"]
+[ext_resource type="SpriteFrames" uid="uid://xlroxwqmj5up" path="res://sprites/crewmate_anim.tres" id="3_c16ls"]
+[ext_resource type="Texture2D" uid="uid://m5m8rn7qonpj" path="res://sprites/background.png" id="4_18nlu"]
+[ext_resource type="Script" uid="uid://djmbgg51xnsqf" path="res://scripts/countdown.gd" id="5_c1pb6"]
+[ext_resource type="Script" uid="uid://cu1bx8rksc6yn" path="res://scripts/cheat_manager.gd" id="6_rt2n2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
+size = Vector2(32, 4)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8mm7a"]
+size = Vector2(32, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2n2"]
+size = Vector2(24, 4)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c16ls"]
+size = Vector2(24, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hq1ik"]
+radius = 2.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8mm7a"]
+vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.14063, -18.796875, 475.21094, -18.007813, 299.4297, -18.203125, -300.7422, -123, -300.89844, -149.96875, 299.03906, -149.02344, -16, -123, -300.39844, -64, -16, -64, 299.1172, -123, 21, -123, 21, -64, 299.29688, -64)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(3, 10, 11, 5), PackedInt32Array(8, 12, 13), PackedInt32Array(9, 8, 13), PackedInt32Array(9, 13, 14, 11), PackedInt32Array(5, 11, 14), PackedInt32Array(5, 14, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-317, -166, 315, -165, 316, 174, -315, 175), PackedVector2Array(-485, -35, 491, -34, 496, 331, -508, 333)])
+agent_radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hq1ik"]
+size = Vector2(288, 27)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cfrsm"]
+size = Vector2(35, 10)
+
+[sub_resource type="Animation" id="Animation_hq1ik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(37, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_66tet"]
+resource_name = "doors_close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-72, 0), Vector2(-36.21885, 0), Vector2(-35.146706, 0), Vector2(-32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(78, 0), Vector2(41.324318, 0), Vector2(40.225372, 0), Vector2(37, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nfk4m"]
+resource_name = "doors_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-32, 0), Vector2(-36.21885, 0), Vector2(-72, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(37, 0), Vector2(41.324318, 0), Vector2(78, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ycvg"]
+_data = {
+&"RESET": SubResource("Animation_hq1ik"),
+&"doors_close": SubResource("Animation_66tet"),
+&"doors_open": SubResource("Animation_nfk4m")
+}
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cfrsm"]
+normal = Vector2(0, 1)
+
+[node name="Game" type="Node2D" unique_id=966306428 node_paths=PackedStringArray("player")]
+texture_filter = 1
+script = ExtResource("1_gubc5")
+player = NodePath("Player")
+passanger_force = 100.0
+passanger_force_cutoff = 4.0
+train_spawns = 6
+platform_spawns = 6
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1781995184]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=414101864]
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("2_rt2n2")
+
+[node name="ArmR" type="CollisionShape2D" parent="Player" unique_id=1551548211]
+visible = false
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/ArmR" unique_id=687827169]
+texture_repeat = 2
+texture = SubResource("PlaceholderTexture2D_8mm7a")
+
+[node name="ArmL" type="CollisionShape2D" parent="Player" unique_id=1823181075]
+visible = false
+position = Vector2(-16, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/ArmL" unique_id=1271696803]
+texture_repeat = 2
+texture = SubResource("PlaceholderTexture2D_8mm7a")
+
+[node name="ArmD" type="CollisionShape2D" parent="Player" unique_id=2108813180]
+visible = false
+position = Vector2(0, 12)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_rt2n2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/ArmD" unique_id=751053088]
+texture_repeat = 2
+texture = SubResource("PlaceholderTexture2D_c16ls")
+
+[node name="ArmU" type="CollisionShape2D" parent="Player" unique_id=925567032]
+visible = false
+position = Vector2(0, -12)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_rt2n2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/ArmU" unique_id=332936697]
+texture_repeat = 2
+texture = SubResource("PlaceholderTexture2D_c16ls")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1872955355]
+modulate = Color(0.13666052, 0.25928682, 0.6752156, 1)
+position = Vector2(0, -5)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("3_c16ls")
+animation = &"standing_panic"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=468796759]
+shape = SubResource("CircleShape2D_hq1ik")
+
+[node name="Passagiere" type="Node2D" parent="." unique_id=450337304]
+
+[node name="Environment" type="Node2D" parent="." unique_id=113889310]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=838315524]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_8mm7a")
+
+[node name="Train" type="StaticBody2D" parent="Environment/NavigationRegion2D" unique_id=1396468835]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/NavigationRegion2D/Train" unique_id=1215308835]
+position = Vector2(-176, -93.5)
+shape = SubResource("RectangleShape2D_hq1ik")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Environment/NavigationRegion2D/Train" unique_id=449092821]
+position = Vector2(181, -93.5)
+shape = SubResource("RectangleShape2D_hq1ik")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1984108039]
+z_index = -3
+texture = ExtResource("4_18nlu")
+
+[node name="Spawns" type="Node2D" parent="." unique_id=540522153]
+position = Vector2(0, -140)
+
+[node name="Platform" type="Node2D" parent="Spawns" unique_id=1343058399]
+position = Vector2(0, 140)
+
+[node name="Spawn1" type="Node2D" parent="Spawns/Platform" unique_id=1765895480]
+position = Vector2(-146, 92)
+
+[node name="Spawn2" type="Node2D" parent="Spawns/Platform" unique_id=243185368]
+position = Vector2(-117, 99)
+
+[node name="Spawn22" type="Node2D" parent="Spawns/Platform" unique_id=140777908]
+position = Vector2(79, -39)
+
+[node name="Spawn23" type="Node2D" parent="Spawns/Platform" unique_id=322340085]
+position = Vector2(108, -32)
+
+[node name="Spawn24" type="Node2D" parent="Spawns/Platform" unique_id=1214932919]
+position = Vector2(-86, -41)
+
+[node name="Spawn25" type="Node2D" parent="Spawns/Platform" unique_id=351409607]
+position = Vector2(-57, -34)
+
+[node name="Spawn3" type="Node2D" parent="Spawns/Platform" unique_id=1723958009]
+position = Vector2(-164, -38)
+
+[node name="Spawn4" type="Node2D" parent="Spawns/Platform" unique_id=1830972060]
+position = Vector2(-135, -31)
+
+[node name="Spawn5" type="Node2D" parent="Spawns/Platform" unique_id=1454734475]
+position = Vector2(216, -29)
+
+[node name="Spawn6" type="Node2D" parent="Spawns/Platform" unique_id=219975329]
+position = Vector2(245, -22)
+
+[node name="Spawn7" type="Node2D" parent="Spawns/Platform" unique_id=1147495055]
+position = Vector2(121, 116)
+
+[node name="Spawn9" type="Node2D" parent="Spawns/Platform" unique_id=81755293]
+position = Vector2(141, 99)
+
+[node name="Spawn8" type="Node2D" parent="Spawns/Platform" unique_id=1512861437]
+position = Vector2(150, 123)
+
+[node name="Spawn10" type="Node2D" parent="Spawns/Platform" unique_id=306846287]
+position = Vector2(24, 32)
+
+[node name="Spawn11" type="Node2D" parent="Spawns/Platform" unique_id=634887921]
+position = Vector2(44, 15)
+
+[node name="Spawn12" type="Node2D" parent="Spawns/Platform" unique_id=1565301207]
+position = Vector2(53, 39)
+
+[node name="Spawn13" type="Node2D" parent="Spawns/Platform" unique_id=1304525336]
+position = Vector2(-253, 18)
+
+[node name="Spawn14" type="Node2D" parent="Spawns/Platform" unique_id=771563213]
+position = Vector2(-233, 1)
+
+[node name="Spawn15" type="Node2D" parent="Spawns/Platform" unique_id=127169480]
+position = Vector2(-224, 25)
+
+[node name="Spawn16" type="Node2D" parent="Spawns/Platform" unique_id=1252036069]
+position = Vector2(222, 60)
+
+[node name="Spawn17" type="Node2D" parent="Spawns/Platform" unique_id=879451256]
+position = Vector2(242, 43)
+
+[node name="Spawn18" type="Node2D" parent="Spawns/Platform" unique_id=106371964]
+position = Vector2(251, 67)
+
+[node name="Spawn19" type="Node2D" parent="Spawns/Platform" unique_id=1184483521]
+position = Vector2(135, 4)
+
+[node name="Spawn20" type="Node2D" parent="Spawns/Platform" unique_id=1780720425]
+position = Vector2(155, -13)
+
+[node name="Spawn21" type="Node2D" parent="Spawns/Platform" unique_id=1324796313]
+position = Vector2(164, 11)
+
+[node name="PlatformOff" type="Node2D" parent="Spawns" unique_id=307240692]
+position = Vector2(0, 140)
+
+[node name="Spawn1" type="Node2D" parent="Spawns/PlatformOff" unique_id=1825127124]
+position = Vector2(-385, 60)
+
+[node name="Spawn2" type="Node2D" parent="Spawns/PlatformOff" unique_id=1977679163]
+position = Vector2(-386, 0)
+
+[node name="Spawn3" type="Node2D" parent="Spawns/PlatformOff" unique_id=978304422]
+position = Vector2(382, 59)
+
+[node name="Spawn4" type="Node2D" parent="Spawns/PlatformOff" unique_id=1224935089]
+position = Vector2(381, -1)
+
+[node name="Spawn5" type="Node2D" parent="Spawns/PlatformOff" unique_id=574694743]
+position = Vector2(432, 85)
+
+[node name="Spawn6" type="Node2D" parent="Spawns/PlatformOff" unique_id=1145210307]
+position = Vector2(431, 25)
+
+[node name="Spawn7" type="Node2D" parent="Spawns/PlatformOff" unique_id=1680270478]
+position = Vector2(-437, 85)
+
+[node name="Spawn8" type="Node2D" parent="Spawns/PlatformOff" unique_id=1214528369]
+position = Vector2(-438, 25)
+
+[node name="Spawn9" type="Node2D" parent="Spawns/PlatformOff" unique_id=1401521545]
+position = Vector2(140, 287)
+
+[node name="Spawn10" type="Node2D" parent="Spawns/PlatformOff" unique_id=1390578064]
+position = Vector2(139, 227)
+
+[node name="Spawn11" type="Node2D" parent="Spawns/PlatformOff" unique_id=31254600]
+position = Vector2(196, 287)
+
+[node name="Spawn12" type="Node2D" parent="Spawns/PlatformOff" unique_id=1479401411]
+position = Vector2(195, 227)
+
+[node name="Spawn13" type="Node2D" parent="Spawns/PlatformOff" unique_id=2001447072]
+position = Vector2(-91, 287)
+
+[node name="Spawn14" type="Node2D" parent="Spawns/PlatformOff" unique_id=1850527727]
+position = Vector2(-92, 227)
+
+[node name="Spawn15" type="Node2D" parent="Spawns/PlatformOff" unique_id=1828679840]
+position = Vector2(-158, 287)
+
+[node name="Spawn16" type="Node2D" parent="Spawns/PlatformOff" unique_id=707664242]
+position = Vector2(-159, 227)
+
+[node name="Train" type="Node2D" parent="Spawns" unique_id=645647181]
+position = Vector2(0, 140)
+
+[node name="Spawn2" type="Node2D" parent="Spawns/Train" unique_id=1134863851]
+position = Vector2(-223, -141)
+
+[node name="Spawn6" type="Node2D" parent="Spawns/Train" unique_id=283308451]
+position = Vector2(-183, -141)
+
+[node name="Spawn10" type="Node2D" parent="Spawns/Train" unique_id=1725176253]
+position = Vector2(-140, -141)
+
+[node name="Spawn11" type="Node2D" parent="Spawns/Train" unique_id=1341260572]
+position = Vector2(-140, -174)
+
+[node name="Spawn14" type="Node2D" parent="Spawns/Train" unique_id=885314806]
+position = Vector2(-97, -141)
+
+[node name="Spawn15" type="Node2D" parent="Spawns/Train" unique_id=1795881513]
+position = Vector2(-97, -174)
+
+[node name="Spawn17" type="Node2D" parent="Spawns/Train" unique_id=939398215]
+position = Vector2(-55, -121)
+
+[node name="Spawn18" type="Node2D" parent="Spawns/Train" unique_id=1728859094]
+position = Vector2(-55, -141)
+
+[node name="Spawn19" type="Node2D" parent="Spawns/Train" unique_id=159493026]
+position = Vector2(-55, -174)
+
+[node name="Spawn20" type="Node2D" parent="Spawns/Train" unique_id=449775455]
+position = Vector2(-55, -194)
+
+[node name="Spawn21" type="Node2D" parent="Spawns/Train" unique_id=1848696651]
+position = Vector2(-18, -121)
+
+[node name="Spawn22" type="Node2D" parent="Spawns/Train" unique_id=1812863474]
+position = Vector2(-18, -141)
+
+[node name="Spawn23" type="Node2D" parent="Spawns/Train" unique_id=2127662250]
+position = Vector2(-18, -174)
+
+[node name="Spawn24" type="Node2D" parent="Spawns/Train" unique_id=1921721323]
+position = Vector2(-18, -194)
+
+[node name="Spawn25" type="Node2D" parent="Spawns/Train" unique_id=1415828537]
+position = Vector2(19, -121)
+
+[node name="Spawn26" type="Node2D" parent="Spawns/Train" unique_id=972653683]
+position = Vector2(19, -141)
+
+[node name="Spawn27" type="Node2D" parent="Spawns/Train" unique_id=466672636]
+position = Vector2(19, -174)
+
+[node name="Spawn28" type="Node2D" parent="Spawns/Train" unique_id=1704225414]
+position = Vector2(19, -194)
+
+[node name="Spawn29" type="Node2D" parent="Spawns/Train" unique_id=407828818]
+position = Vector2(59, -121)
+
+[node name="Spawn30" type="Node2D" parent="Spawns/Train" unique_id=300864042]
+position = Vector2(59, -141)
+
+[node name="Spawn31" type="Node2D" parent="Spawns/Train" unique_id=555359278]
+position = Vector2(59, -174)
+
+[node name="Spawn32" type="Node2D" parent="Spawns/Train" unique_id=1736793598]
+position = Vector2(59, -194)
+
+[node name="Spawn34" type="Node2D" parent="Spawns/Train" unique_id=223371784]
+position = Vector2(102, -141)
+
+[node name="Spawn35" type="Node2D" parent="Spawns/Train" unique_id=1248215699]
+position = Vector2(102, -174)
+
+[node name="Spawn38" type="Node2D" parent="Spawns/Train" unique_id=1087008730]
+position = Vector2(145, -141)
+
+[node name="Spawn39" type="Node2D" parent="Spawns/Train" unique_id=655570788]
+position = Vector2(145, -174)
+
+[node name="Spawn42" type="Node2D" parent="Spawns/Train" unique_id=1234339201]
+position = Vector2(187, -141)
+
+[node name="Spawn46" type="Node2D" parent="Spawns/Train" unique_id=1550736925]
+position = Vector2(224, -141)
+
+[node name="UI" type="Node2D" parent="." unique_id=331326640]
+
+[node name="Rounds" type="Node2D" parent="UI" unique_id=569099933]
+position = Vector2(213, -179)
+
+[node name="RoundsLabel" type="Label" parent="UI/Rounds" unique_id=11352407]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="RoundsLabel2" type="Label" parent="UI/Rounds" unique_id=741545246]
+offset_left = -44.0
+offset_right = -4.0
+offset_bottom = 23.0
+text = "Train:"
+horizontal_alignment = 2
+
+[node name="Countdown" type="Node2D" parent="UI" unique_id=2009089499]
+position = Vector2(213, -155)
+script = ExtResource("5_c1pb6")
+
+[node name="TimeLabel" type="Label" parent="UI/Countdown" unique_id=1023448209]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="TimeLabel2" type="Label" parent="UI/Countdown" unique_id=5818296]
+offset_left = -48.0
+offset_right = 1.0
+offset_bottom = 23.0
+text = "Time:"
+horizontal_alignment = 2
+
+[node name="TimerDepart" type="Timer" parent="UI/Countdown" unique_id=2074442273]
+wait_time = 16.0
+one_shot = true
+
+[node name="TimerDoor" type="Timer" parent="UI/Countdown" unique_id=1376088257]
+wait_time = 15.0
+one_shot = true
+
+[node name="TimerNextLevel" type="Timer" parent="UI/Countdown" unique_id=1810757391]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="Score" type="Node2D" parent="UI" unique_id=1461734394]
+position = Vector2(213, -132)
+
+[node name="ScoreLabel" type="Label" parent="UI/Score" unique_id=1510786720]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+horizontal_alignment = 2
+
+[node name="ScoreLabel2" type="Label" parent="UI/Score" unique_id=176671198]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_right = 2.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Score:"
+horizontal_alignment = 2
+
+[node name="Doors" type="Node2D" parent="." unique_id=966025481]
+position = Vector2(0, -91)
+
+[node name="DoorL" type="AnimatableBody2D" parent="Doors" unique_id=394609330]
+position = Vector2(-32, 0)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Doors/DoorL" unique_id=625621395]
+polygon = PackedVector2Array(0, -5, 34, -5, 40, 0, 34, 5, 0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Doors/DoorL" unique_id=916411308]
+texture_repeat = 2
+position = Vector2(16, 0)
+texture = SubResource("PlaceholderTexture2D_cfrsm")
+
+[node name="DoorR" type="AnimatableBody2D" parent="Doors" unique_id=732528677]
+position = Vector2(37, 0)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Doors/DoorR" unique_id=1874809619]
+position = Vector2(0.30000305, 0)
+scale = Vector2(-1, -1)
+polygon = PackedVector2Array(0, -5, 35, -5, 41, 0, 35, 5, 0, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Doors/DoorR" unique_id=1128133402]
+texture_repeat = 2
+position = Vector2(-17.699997, 0)
+texture = SubResource("PlaceholderTexture2D_cfrsm")
+
+[node name="DoorAnim" type="AnimationPlayer" parent="Doors" unique_id=233755270]
+libraries/ = SubResource("AnimationLibrary_7ycvg")
+
+[node name="TrainArea" type="Area2D" parent="." unique_id=1827569934]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrainArea" unique_id=1111715148]
+position = Vector2(0, -91)
+shape = SubResource("WorldBoundaryShape2D_cfrsm")
+
+[node name="PlayerBlock" type="StaticBody2D" parent="." unique_id=776589656]
+collision_layer = 0
+collision_mask = 0
+
+[node name="PlayerBlockShape" type="CollisionShape2D" parent="PlayerBlock" unique_id=929433677]
+position = Vector2(0, -91)
+shape = SubResource("WorldBoundaryShape2D_cfrsm")
+
+[node name="CheatManager" type="Node" parent="." unique_id=501400995]
+script = ExtResource("6_rt2n2")
+cheat_trigger = "käfir"
+
+[connection signal="timeout" from="UI/Countdown/TimerDepart" to="." method="train_depart"]
+[connection signal="timeout" from="UI/Countdown/TimerDoor" to="." method="close_doors"]
+[connection signal="timeout" from="UI/Countdown/TimerNextLevel" to="." method="train_arrive"]
+[connection signal="animation_finished" from="Doors/DoorAnim" to="Doors/DoorAnim" method="stop" unbinds=1 binds= [true]]
