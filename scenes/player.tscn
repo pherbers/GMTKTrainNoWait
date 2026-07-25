@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cvyhti0piw34f"]
+
+[ext_resource type="Script" uid="uid://c2cpsitve2njc" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://tl573hinsj1q" path="res://sprites/cop_arms.png" id="2_qhqgy"]
+[ext_resource type="SpriteFrames" uid="uid://bkli7n2q5t35s" path="res://sprites/cop_anim.tres" id="3_dqkch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2n2"]
+size = Vector2(24, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(29, 2, 6, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
+size = Vector2(32, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21wjq"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(37, 27, 24, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(4, 27, 22, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("2_qhqgy")
+region = Rect2(26, 29, 8, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hq1ik"]
+radius = 2.0
+
+[node name="Player" type="CharacterBody2D" unique_id=354621453]
+y_sort_enabled = true
+texture_filter = 1
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("1_g2els")
+
+[node name="ArmU" type="CollisionShape2D" parent="." unique_id=1748231998]
+y_sort_enabled = true
+position = Vector2(0, -12)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_rt2n2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmU" unique_id=830956547]
+texture_repeat = 2
+position = Vector2(36, 0)
+rotation = 1.5707964
+texture = SubResource("AtlasTexture_fjrip")
+
+[node name="Viz" type="Node2D" parent="." unique_id=2124417407]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Viz" unique_id=941532485]
+y_sort_enabled = true
+position = Vector2(0, -27)
+sprite_frames = ExtResource("3_dqkch")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="ArmR" type="CollisionShape2D" parent="." unique_id=826816581]
+y_sort_enabled = true
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmR" unique_id=2106548105]
+texture_repeat = 2
+position = Vector2(1, -29.49)
+texture = SubResource("AtlasTexture_21wjq")
+
+[node name="ArmL" type="CollisionShape2D" parent="." unique_id=1864666749]
+y_sort_enabled = true
+position = Vector2(-16, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmL" unique_id=631591140]
+texture_repeat = 2
+position = Vector2(1, -30)
+texture = SubResource("AtlasTexture_qlg0r")
+
+[node name="ArmD" type="CollisionShape2D" parent="." unique_id=768765992]
+y_sort_enabled = true
+position = Vector2(0, 12)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_rt2n2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ArmD" unique_id=457376326]
+texture_repeat = 2
+position = Vector2(33, -1.9999981)
+rotation = 1.5707964
+texture = SubResource("AtlasTexture_tuyoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=348581487]
+shape = SubResource("CircleShape2D_hq1ik")

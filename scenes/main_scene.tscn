@@ -1,26 +1,10 @@
 [gd_scene format=3 uid="uid://b8eqje04swgoh"]
 
 [ext_resource type="Script" uid="uid://bmkphy85h7vmr" path="res://scripts/game.gd" id="1_gubc5"]
-[ext_resource type="Script" uid="uid://c2cpsitve2njc" path="res://scripts/player.gd" id="2_rt2n2"]
-[ext_resource type="SpriteFrames" uid="uid://xlroxwqmj5up" path="res://sprites/crewmate_anim.tres" id="3_c16ls"]
+[ext_resource type="PackedScene" uid="uid://cvyhti0piw34f" path="res://scenes/player.tscn" id="2_gubc5"]
 [ext_resource type="Texture2D" uid="uid://m5m8rn7qonpj" path="res://sprites/background.png" id="4_18nlu"]
 [ext_resource type="Script" uid="uid://djmbgg51xnsqf" path="res://scripts/countdown.gd" id="5_c1pb6"]
 [ext_resource type="Script" uid="uid://cu1bx8rksc6yn" path="res://scripts/cheat_manager.gd" id="6_rt2n2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
-size = Vector2(32, 4)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8mm7a"]
-size = Vector2(32, 4)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rt2n2"]
-size = Vector2(24, 4)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c16ls"]
-size = Vector2(24, 4)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hq1ik"]
-radius = 2.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8mm7a"]
 vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.14063, -18.796875, 475.21094, -18.007813, 299.4297, -18.203125, -300.7422, -123, -300.89844, -149.96875, 299.03906, -149.02344, -16, -123, -300.39844, -64, -16, -64, 299.1172, -123, 21, -123, 21, -64, 299.29688, -64)
@@ -126,74 +110,21 @@ _data = {
 normal = Vector2(0, 1)
 
 [node name="Game" type="Node2D" unique_id=966306428 node_paths=PackedStringArray("player")]
+y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_gubc5")
 player = NodePath("Player")
 passanger_force = 100.0
-passanger_force_cutoff = 4.0
+passanger_force_cutoff = 3.0
 train_spawns = 6
 platform_spawns = 6
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1781995184]
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=414101864]
-collision_layer = 9
-collision_mask = 9
-script = ExtResource("2_rt2n2")
-
-[node name="ArmR" type="CollisionShape2D" parent="Player" unique_id=1551548211]
-visible = false
-position = Vector2(16, 0)
-shape = SubResource("RectangleShape2D_8mm7a")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/ArmR" unique_id=687827169]
-texture_repeat = 2
-texture = SubResource("PlaceholderTexture2D_8mm7a")
-
-[node name="ArmL" type="CollisionShape2D" parent="Player" unique_id=1823181075]
-visible = false
-position = Vector2(-16, 0)
-shape = SubResource("RectangleShape2D_8mm7a")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/ArmL" unique_id=1271696803]
-texture_repeat = 2
-texture = SubResource("PlaceholderTexture2D_8mm7a")
-
-[node name="ArmD" type="CollisionShape2D" parent="Player" unique_id=2108813180]
-visible = false
-position = Vector2(0, 12)
-rotation = -1.5707964
-shape = SubResource("RectangleShape2D_rt2n2")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/ArmD" unique_id=751053088]
-texture_repeat = 2
-texture = SubResource("PlaceholderTexture2D_c16ls")
-
-[node name="ArmU" type="CollisionShape2D" parent="Player" unique_id=925567032]
-visible = false
-position = Vector2(0, -12)
-rotation = -1.5707964
-shape = SubResource("RectangleShape2D_rt2n2")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/ArmU" unique_id=332936697]
-texture_repeat = 2
-texture = SubResource("PlaceholderTexture2D_c16ls")
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1872955355]
-modulate = Color(0.13666052, 0.25928682, 0.6752156, 1)
-position = Vector2(0, -5)
-scale = Vector2(2, 2)
-sprite_frames = ExtResource("3_c16ls")
-animation = &"standing_panic"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=468796759]
-shape = SubResource("CircleShape2D_hq1ik")
+[node name="Player" parent="." unique_id=354621453 instance=ExtResource("2_gubc5")]
 
 [node name="Passagiere" type="Node2D" parent="." unique_id=450337304]
+y_sort_enabled = true
 
 [node name="Environment" type="Node2D" parent="." unique_id=113889310]
 

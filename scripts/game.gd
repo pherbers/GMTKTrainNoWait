@@ -69,7 +69,6 @@ func calc_push_force(pos1, pos2):
     var dist = pos1.distance_to(pos2) / 32
     if dist > passanger_force_cutoff or dist == 0:
         return Vector2.ZERO
-
     var force = 1. / pow(dist,4)
     var dir = pos1.direction_to(pos2)
     var force_vec = dir * force * passanger_force

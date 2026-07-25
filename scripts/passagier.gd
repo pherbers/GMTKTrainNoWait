@@ -11,6 +11,7 @@ enum PState {WAIT_PLATFORM, WAIT_TRAIN, ENTER, EXIT, LEAVE}
 var walk_force = 2000.
 
 @onready var train_area: Area2D = $/root/Game/TrainArea
+@onready var sprite: AnimatedSprite2D = $Sprite2D
     
 var push_force: Vector2
 var crowd_size: int
@@ -40,6 +41,16 @@ func _physics_process(_delta):
         walk_force_mod = 0.7
     if crowd_size > 10:
         walk_force_mod = 0.4
+    var dists = navpos.distance_squared_to(position)
+    if dists < 1:
+        walk_force_mod *= dists
+        sprite.animation = "idle"
+    else:
+        sprite.animation = "walk"
+        if navdir.x < -0.2:
+            sprite.flip_h = true
+        if navdir.x > 0.2:
+            sprite.flip_h = false
     apply_force(navdir * walk_force * walk_force_mod)
 
 func _exit_tree():
