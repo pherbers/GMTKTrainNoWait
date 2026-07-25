@@ -19,6 +19,9 @@ var crowd_size: int
 @export var points_happy = 100
 @export var points_pissed = -300
 
+enum PType { NORMAL, OLD, AGRESSIVE}
+@export var type = PType.NORMAL
+
 func _ready():
     game.passagiere.append(self)
     $NavigationAgent2D/Timer.start(randf())
@@ -26,6 +29,17 @@ func _ready():
     
     update_visuals()
     update_nav_target()
+    
+    if type == PType.OLD:
+        walk_force /= 2
+        sprite.speed_scale = 0.5
+        sprite.sprite_frames = preload("res://sprites/passenger_omi.tres")
+        sprite.animation = "idle"
+        sprite.play()
+    if type == PType.AGRESSIVE:
+        walk_force *= 2
+        sprite.speed_scale = 1.5
+        sprite.modulate = Color.ROSY_BROWN
 
 func _physics_process(_delta):
     apply_central_force(push_force)
@@ -92,18 +106,24 @@ func is_in_train() -> bool:
 
 func react_pissed():
     game.score += points_pissed
+    game.pissed_people += 1
     var piss = preload("res://scenes/react_pissed.tscn").instantiate()
-    piss.position = position + Vector2(0, 16)
     piss.find_child("Label").text = "" + str(points_pissed)
     
-    game.add_child(piss)
+    if is_in_train():
+        piss.position = Vector2(randi_range(-100, 100), -96)
+        game.add_child(piss)
+        create_tween().tween_property(piss, "position", piss.position + Vector2(0, -48), 5)
+    else:
+        piss.position = Vector2(0, -48)
+        add_child(piss)
     
 func react_happy():
     game.score += points_happy
     var happy = preload("res://scenes/react_happy.tscn").instantiate()
     happy.position = position + Vector2(0, 16)
     happy.find_child("Label").text = "+" + str(points_happy)
-    game.add_child(happy)
+    add_child(happy)
 
 func look_alive():
     if state == PState.LEAVE:
@@ -127,15 +147,17 @@ func leave_station():
 
 func update_visuals():
     if state == PState.ENTER:
-        $Sprite2D.modulate = Color.SEA_GREEN
+        $Halo.visible = true
+        $Halo.modulate = Color.NAVY_BLUE
     elif state == PState.EXIT:
-        $Sprite2D.modulate = Color.DARK_RED
+        $Halo.visible = true
+        $Halo.modulate = Color.DARK_RED
     elif state == PState.LEAVE:
-        $Sprite2D.modulate = Color.BLACK
+        $Halo.visible = false
     elif state == PState.WAIT_PLATFORM:
-        $Sprite2D.modulate = Color.WEB_GREEN
+        $Halo.visible = false
     elif state == PState.WAIT_TRAIN:
-        $Sprite2D.modulate = Color.RED
+        $Halo.visible = false
         
 func update_nav_target():
     if state == PState.ENTER:
@@ -145,7 +167,8 @@ func update_nav_target():
     elif state == PState.LEAVE:
         nav.target_position = game.get_platform_off_target(position)
     elif state == PState.WAIT_PLATFORM:
-        nav.target_position = game.get_platform_target()
+        if nav.target_position.distance_to(position) > 10:
+            nav.target_position = game.get_platform_target()
     elif state == PState.WAIT_TRAIN:
         nav.target_position = game.get_train_target()
     

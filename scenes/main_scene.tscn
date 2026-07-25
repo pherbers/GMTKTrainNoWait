@@ -4,12 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://cvyhti0piw34f" path="res://scenes/player.tscn" id="2_gubc5"]
 [ext_resource type="Texture2D" uid="uid://m5m8rn7qonpj" path="res://sprites/background.png" id="4_18nlu"]
 [ext_resource type="Script" uid="uid://djmbgg51xnsqf" path="res://scripts/countdown.gd" id="5_c1pb6"]
+[ext_resource type="Texture2D" uid="uid://dyk1rjbxickbq" path="res://sprites/pissed.png" id="5_rt2n2"]
+[ext_resource type="Texture2D" uid="uid://bckpkjbfh30l" path="res://sprites/happy.png" id="6_c16ls"]
 [ext_resource type="Script" uid="uid://cu1bx8rksc6yn" path="res://scripts/cheat_manager.gd" id="6_rt2n2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8mm7a"]
-vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.14063, -18.796875, 475.21094, -18.007813, 299.4297, -18.203125, -300.7422, -123, -300.89844, -149.96875, 299.03906, -149.02344, -16, -123, -300.39844, -64, -16, -64, 299.1172, -123, 21, -123, 21, -64, 299.29688, -64)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(3, 10, 11, 5), PackedInt32Array(8, 12, 13), PackedInt32Array(9, 8, 13), PackedInt32Array(9, 13, 14, 11), PackedInt32Array(5, 11, 14), PackedInt32Array(5, 14, 15)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-317, -166, 315, -165, 316, 174, -315, 175), PackedVector2Array(-485, -35, 491, -34, 496, 331, -508, 333)])
+vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.4375, -18.796875, 475.21094, -18.007813, 301.92188, -18.1875, 21, -64, 302.3828, -64, -301.21875, -123, -301.8672, -210.96875, 303.82813, -210.02344, -16, -123, -300.78125, -64, -16, -64, 21, -123, 302.96094, -123)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 5, 3), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(3, 12, 13), PackedInt32Array(6, 3, 13), PackedInt32Array(14, 6, 13, 11), PackedInt32Array(14, 11, 10), PackedInt32Array(14, 10, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-318, -227, 320, -226, 316, 174, -315, 175), PackedVector2Array(-485, -35, 491, -34, 496, 331, -508, 333)])
 agent_radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hq1ik"]
@@ -109,6 +111,17 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cfrsm"]
 normal = Vector2(0, 1)
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gubc5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rt2n2"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_c16ls"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfrsm"]
+size = Vector2(274, 88)
+
 [node name="Game" type="Node2D" unique_id=966306428 node_paths=PackedStringArray("player")]
 y_sort_enabled = true
 texture_filter = 1
@@ -154,6 +167,18 @@ position = Vector2(0, 140)
 
 [node name="Spawn1" type="Node2D" parent="Spawns/Platform" unique_id=1765895480]
 position = Vector2(-146, 92)
+
+[node name="Spawn26" type="Node2D" parent="Spawns/Platform" unique_id=837663666]
+position = Vector2(-54, 32)
+
+[node name="Spawn27" type="Node2D" parent="Spawns/Platform" unique_id=1810475589]
+position = Vector2(-103, -2)
+
+[node name="Spawn28" type="Node2D" parent="Spawns/Platform" unique_id=1753966386]
+position = Vector2(-99, 30)
+
+[node name="Spawn29" type="Node2D" parent="Spawns/Platform" unique_id=1858753506]
+position = Vector2(160, -42)
 
 [node name="Spawn2" type="Node2D" parent="Spawns/Platform" unique_id=243185368]
 position = Vector2(-117, 99)
@@ -231,19 +256,19 @@ position = Vector2(164, 11)
 position = Vector2(0, 140)
 
 [node name="Spawn1" type="Node2D" parent="Spawns/PlatformOff" unique_id=1825127124]
-position = Vector2(-385, 60)
+position = Vector2(-348, 110)
 
 [node name="Spawn2" type="Node2D" parent="Spawns/PlatformOff" unique_id=1977679163]
 position = Vector2(-386, 0)
 
 [node name="Spawn3" type="Node2D" parent="Spawns/PlatformOff" unique_id=978304422]
-position = Vector2(382, 59)
+position = Vector2(407, 91)
 
 [node name="Spawn4" type="Node2D" parent="Spawns/PlatformOff" unique_id=1224935089]
 position = Vector2(381, -1)
 
 [node name="Spawn5" type="Node2D" parent="Spawns/PlatformOff" unique_id=574694743]
-position = Vector2(432, 85)
+position = Vector2(445, 161)
 
 [node name="Spawn6" type="Node2D" parent="Spawns/PlatformOff" unique_id=1145210307]
 position = Vector2(431, 25)
@@ -258,22 +283,22 @@ position = Vector2(-438, 25)
 position = Vector2(140, 287)
 
 [node name="Spawn10" type="Node2D" parent="Spawns/PlatformOff" unique_id=1390578064]
-position = Vector2(139, 227)
+position = Vector2(303, 218)
 
 [node name="Spawn11" type="Node2D" parent="Spawns/PlatformOff" unique_id=31254600]
-position = Vector2(196, 287)
+position = Vector2(455, 295)
 
 [node name="Spawn12" type="Node2D" parent="Spawns/PlatformOff" unique_id=1479401411]
 position = Vector2(195, 227)
 
 [node name="Spawn13" type="Node2D" parent="Spawns/PlatformOff" unique_id=2001447072]
-position = Vector2(-91, 287)
+position = Vector2(-20, 291)
 
 [node name="Spawn14" type="Node2D" parent="Spawns/PlatformOff" unique_id=1850527727]
-position = Vector2(-92, 227)
+position = Vector2(-88, 248)
 
 [node name="Spawn15" type="Node2D" parent="Spawns/PlatformOff" unique_id=1828679840]
-position = Vector2(-158, 287)
+position = Vector2(-278, 287)
 
 [node name="Spawn16" type="Node2D" parent="Spawns/PlatformOff" unique_id=707664242]
 position = Vector2(-159, 227)
@@ -299,52 +324,52 @@ position = Vector2(-97, -141)
 [node name="Spawn15" type="Node2D" parent="Spawns/Train" unique_id=1795881513]
 position = Vector2(-97, -174)
 
-[node name="Spawn17" type="Node2D" parent="Spawns/Train" unique_id=939398215]
+[node name="DoorSpawn17" type="Node2D" parent="Spawns/Train" unique_id=939398215]
 position = Vector2(-55, -121)
 
-[node name="Spawn18" type="Node2D" parent="Spawns/Train" unique_id=1728859094]
+[node name="DoorSpawn18" type="Node2D" parent="Spawns/Train" unique_id=1728859094]
 position = Vector2(-55, -141)
 
-[node name="Spawn19" type="Node2D" parent="Spawns/Train" unique_id=159493026]
+[node name="DoorSpawn19" type="Node2D" parent="Spawns/Train" unique_id=159493026]
 position = Vector2(-55, -174)
 
-[node name="Spawn20" type="Node2D" parent="Spawns/Train" unique_id=449775455]
+[node name="DoorSpawn20" type="Node2D" parent="Spawns/Train" unique_id=449775455]
 position = Vector2(-55, -194)
 
-[node name="Spawn21" type="Node2D" parent="Spawns/Train" unique_id=1848696651]
+[node name="DoorSpawn21" type="Node2D" parent="Spawns/Train" unique_id=1848696651]
 position = Vector2(-18, -121)
 
-[node name="Spawn22" type="Node2D" parent="Spawns/Train" unique_id=1812863474]
+[node name="DoorSpawn22" type="Node2D" parent="Spawns/Train" unique_id=1812863474]
 position = Vector2(-18, -141)
 
-[node name="Spawn23" type="Node2D" parent="Spawns/Train" unique_id=2127662250]
+[node name="DoorSpawn23" type="Node2D" parent="Spawns/Train" unique_id=2127662250]
 position = Vector2(-18, -174)
 
-[node name="Spawn24" type="Node2D" parent="Spawns/Train" unique_id=1921721323]
+[node name="DoorSpawn24" type="Node2D" parent="Spawns/Train" unique_id=1921721323]
 position = Vector2(-18, -194)
 
-[node name="Spawn25" type="Node2D" parent="Spawns/Train" unique_id=1415828537]
+[node name="DoorSpawn25" type="Node2D" parent="Spawns/Train" unique_id=1415828537]
 position = Vector2(19, -121)
 
-[node name="Spawn26" type="Node2D" parent="Spawns/Train" unique_id=972653683]
+[node name="DoorSpawn26" type="Node2D" parent="Spawns/Train" unique_id=972653683]
 position = Vector2(19, -141)
 
-[node name="Spawn27" type="Node2D" parent="Spawns/Train" unique_id=466672636]
+[node name="DoorSpawn27" type="Node2D" parent="Spawns/Train" unique_id=466672636]
 position = Vector2(19, -174)
 
-[node name="Spawn28" type="Node2D" parent="Spawns/Train" unique_id=1704225414]
+[node name="DoorSpawn28" type="Node2D" parent="Spawns/Train" unique_id=1704225414]
 position = Vector2(19, -194)
 
-[node name="Spawn29" type="Node2D" parent="Spawns/Train" unique_id=407828818]
+[node name="DoorSpawn29" type="Node2D" parent="Spawns/Train" unique_id=407828818]
 position = Vector2(59, -121)
 
-[node name="Spawn30" type="Node2D" parent="Spawns/Train" unique_id=300864042]
+[node name="DoorSpawn30" type="Node2D" parent="Spawns/Train" unique_id=300864042]
 position = Vector2(59, -141)
 
-[node name="Spawn31" type="Node2D" parent="Spawns/Train" unique_id=555359278]
+[node name="DoorSpawn31" type="Node2D" parent="Spawns/Train" unique_id=555359278]
 position = Vector2(59, -174)
 
-[node name="Spawn32" type="Node2D" parent="Spawns/Train" unique_id=1736793598]
+[node name="DoorSpawn32" type="Node2D" parent="Spawns/Train" unique_id=1736793598]
 position = Vector2(59, -194)
 
 [node name="Spawn34" type="Node2D" parent="Spawns/Train" unique_id=223371784]
@@ -366,6 +391,7 @@ position = Vector2(187, -141)
 position = Vector2(224, -141)
 
 [node name="UI" type="Node2D" parent="." unique_id=331326640]
+z_index = 2
 
 [node name="Rounds" type="Node2D" parent="UI" unique_id=569099933]
 position = Vector2(213, -179)
@@ -375,6 +401,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "0"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="RoundsLabel2" type="Label" parent="UI/Rounds" unique_id=741545246]
 offset_left = -44.0
@@ -382,6 +409,7 @@ offset_right = -4.0
 offset_bottom = 23.0
 text = "Train:"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Countdown" type="Node2D" parent="UI" unique_id=2009089499]
 position = Vector2(213, -155)
@@ -392,6 +420,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "0"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TimeLabel2" type="Label" parent="UI/Countdown" unique_id=5818296]
 offset_left = -48.0
@@ -399,6 +428,7 @@ offset_right = 1.0
 offset_bottom = 23.0
 text = "Time:"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="TimerDepart" type="Timer" parent="UI/Countdown" unique_id=2074442273]
 wait_time = 16.0
@@ -414,6 +444,7 @@ one_shot = true
 autostart = true
 
 [node name="Score" type="Node2D" parent="UI" unique_id=1461734394]
+visible = false
 position = Vector2(213, -132)
 
 [node name="ScoreLabel" type="Label" parent="UI/Score" unique_id=1510786720]
@@ -421,6 +452,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "0"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ScoreLabel2" type="Label" parent="UI/Score" unique_id=176671198]
 anchors_preset = 1
@@ -432,11 +464,34 @@ offset_bottom = 23.0
 grow_horizontal = 0
 text = "Score:"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Pissometer" type="Node2D" parent="UI" unique_id=1947064334]
+position = Vector2(1, 152)
+
+[node name="Pissed" type="Sprite2D" parent="UI/Pissometer" unique_id=860508577]
+position = Vector2(78, 0)
+texture = ExtResource("5_rt2n2")
+
+[node name="Happy" type="Sprite2D" parent="UI/Pissometer" unique_id=1548334685]
+position = Vector2(-73, 0)
+texture = ExtResource("6_c16ls")
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Pissometer" unique_id=668513700]
+custom_minimum_size = Vector2(128, 0)
+offset_left = -61.0
+offset_top = -12.0
+offset_right = 67.0
+offset_bottom = 15.0
+max_value = 10.0
+show_percentage = false
 
 [node name="Doors" type="Node2D" parent="." unique_id=966025481]
+y_sort_enabled = true
 position = Vector2(0, -91)
 
 [node name="DoorL" type="AnimatableBody2D" parent="Doors" unique_id=394609330]
+y_sort_enabled = true
 position = Vector2(-32, 0)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Doors/DoorL" unique_id=625621395]
@@ -448,6 +503,7 @@ position = Vector2(16, 0)
 texture = SubResource("PlaceholderTexture2D_cfrsm")
 
 [node name="DoorR" type="AnimatableBody2D" parent="Doors" unique_id=732528677]
+y_sort_enabled = true
 position = Vector2(37, 0)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Doors/DoorR" unique_id=1874809619]
@@ -472,16 +528,38 @@ position = Vector2(0, -91)
 shape = SubResource("WorldBoundaryShape2D_cfrsm")
 
 [node name="PlayerBlock" type="StaticBody2D" parent="." unique_id=776589656]
-collision_layer = 0
 collision_mask = 0
 
 [node name="PlayerBlockShape" type="CollisionShape2D" parent="PlayerBlock" unique_id=929433677]
-position = Vector2(0, -91)
+position = Vector2(0, -154)
 shape = SubResource("WorldBoundaryShape2D_cfrsm")
+
+[node name="PlayerBlockShape2" type="CollisionShape2D" parent="PlayerBlock" unique_id=319493511]
+position = Vector2(0, 181)
+shape = SubResource("WorldBoundaryShape2D_gubc5")
+
+[node name="PlayerBlockShape3" type="CollisionShape2D" parent="PlayerBlock" unique_id=1675481423]
+position = Vector2(-320, 30)
+shape = SubResource("WorldBoundaryShape2D_rt2n2")
+
+[node name="PlayerBlockShape4" type="CollisionShape2D" parent="PlayerBlock" unique_id=1902255131]
+position = Vector2(320, -33)
+shape = SubResource("WorldBoundaryShape2D_c16ls")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBlock" unique_id=1338404743]
+position = Vector2(183, -136)
+shape = SubResource("RectangleShape2D_cfrsm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerBlock" unique_id=1117147848]
+position = Vector2(-183, -136)
+shape = SubResource("RectangleShape2D_cfrsm")
 
 [node name="CheatManager" type="Node" parent="." unique_id=501400995]
 script = ExtResource("6_rt2n2")
 cheat_trigger = "käfir"
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1726182396]
+position = Vector2(150, -91)
 
 [connection signal="timeout" from="UI/Countdown/TimerDepart" to="." method="train_depart"]
 [connection signal="timeout" from="UI/Countdown/TimerDoor" to="." method="close_doors"]

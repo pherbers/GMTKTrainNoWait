@@ -9,26 +9,35 @@ var passagiere: Array[Passagier]
 @export var passanger_force = 1.0
 @export var passanger_force_cutoff = 32.0
 
-enum GameState { NEXT_LEVEL, PLAY, DEPART }
+enum GameState { NEXT_LEVEL, PLAY, DEPART, GAME_OVER }
 @export var game_state: GameState = GameState.NEXT_LEVEL
 
 @export var train_spawns = 10
 @export var platform_spawns = 10
 
-@export var train_spawns_round = [6, 7, 10, 5, 12, 13]
-@export var platform_spawns_round = [6, 7, 6, 11, 10, 11]
+@export var train_spawns_round = [6, 7, 10, 5, 12, 9, 15, 15, 20, 15]
+@export var platform_spawns_round = [6, 7, 6, 11, 10, 11, 10, 16, 16, 23]
 
-@export var round = 0
-@export var max_rounds = 6
+@export var round_ = 0
+@export var max_rounds = 10
+var pissed_people = 0
 
 @export var score = 0:
     set(val):
         score = val
         update_score()
 
+@export var pissometer = 0:
+    set(val):
+        pissometer = val
+        update_score()
+@export var max_piss = 10
+@export var unpiss_per_round = 10
+
+var clean_rounds = 0
 
 func _ready():
-    $UI/Rounds/RoundsLabel.text = str(round) + "/" + str(max_rounds)
+    $UI/Rounds/RoundsLabel.text = str(round_) + "/" + str(max_rounds)
     spawn_platform()
 
 func _process(delta):
@@ -42,6 +51,9 @@ func _physics_process(delta):
 
 func update_score():
     $UI/Score/ScoreLabel.text = str(score)
+    $UI/Pissometer/ProgressBar.max_value = max_piss
+    var tween = get_tree().create_tween()
+    tween.tween_property($UI/Pissometer/ProgressBar, "value", pissometer, 1.0)
 
 func integrate_passanger_forces(delta: float):
     for i in range(len(passagiere)):
@@ -74,8 +86,10 @@ func calc_push_force(pos1, pos2):
     var force_vec = dir * force * passanger_force
     return force_vec
 
+var _platform_target_index = randi_range(0,29)
 func get_platform_target():
-    return $Spawns/Platform.get_children().pick_random().position
+    _platform_target_index = (_platform_target_index + 5) % 29
+    return $Spawns/Platform.get_child(_platform_target_index).position
     
 func get_platform_off_target_random():
     return $Spawns/PlatformOff.get_children().pick_random().position
@@ -92,6 +106,9 @@ func get_platform_off_target(from: Vector2):
 
 func get_train_target():
     return $Spawns/Train.get_children().pick_random().position
+    
+func get_train_target_at_door():
+    return $Spawns/Train.find_children("Door*").pick_random().position
 
 func close_doors():
     # close doors
@@ -102,18 +119,30 @@ func train_depart():
         p.set_wait()
     game_state = GameState.DEPART
     $UI/Countdown/TimerNextLevel.start()
+    print(str(pissed_people) + " people are pissed")
+    if pissed_people > 0:
+        pissometer = clamp(pissometer + min(pissed_people, 6), 0, max_piss)
+        shake_tween($UI/Pissometer/Pissed)
+    else:
+        pissometer = clamp(pissometer - 3, 0, max_piss)
+        shake_tween($UI/Pissometer/Happy)
+        clean_rounds += 1
+        
+    pissed_people = 0
+    if pissometer == max_piss:
+        game_over(false)
     
     spawn_platform()
 
 func train_arrive():
-    if round >= max_rounds:
+    if round_ >= max_rounds:
         $UI/Rounds/RoundsLabel.text = "6/6"
         return
     
-    round += 1
-    train_spawns = train_spawns_round[round - 1]
-    platform_spawns = platform_spawns_round[round - 1]
-    $UI/Rounds/RoundsLabel.text = str(round) + "/" + str(max_rounds)
+    round_ += 1
+    train_spawns = train_spawns_round[round_ - 1]
+    platform_spawns = platform_spawns_round[round_ - 1]
+    $UI/Rounds/RoundsLabel.text = str(round_) + "/" + str(max_rounds)
     
     # after closed doors
     game_state = GameState.PLAY
@@ -137,11 +166,16 @@ func spawn_platform():
             platform_count+=1
             
     var dynamics = ceili(randf() * 0.5 * platform_count)
+    if round_ == 7:
+        dynamics = 0
     
     var send_away = max(platform_count - platform_spawns, 0) + dynamics
     var call_up   = max(platform_spawns - platform_count, 0) + dynamics
     
-    if round >= max_rounds:
+    if round_ >= max_rounds:
+        game_over(true)
+        
+    if game_state == GameState.GAME_OVER:
         send_away = len(passagiere)
         call_up = 0
     
@@ -157,12 +191,35 @@ func spawn_platform():
         var spawn_pos = get_platform_off_target_random()
         var new_pass = preload("res://scenes/passagier.tscn").instantiate()
         new_pass.position = spawn_pos
+        new_pass.type = [0,0,0,0,0,0,1,2].pick_random()
         $Passagiere.add_child(new_pass)
-    
+
 func spawn_train():
     for i in range(train_spawns):
         var spawn_pos = get_train_target()
         var new_pass: Passagier = preload("res://scenes/passagier.tscn").instantiate()
         new_pass.position = spawn_pos
         new_pass.state = Passagier.PState.EXIT
+        new_pass.type = [0,0,0,0,0,0,1,2].pick_random()
+        if round_ == 6:
+            new_pass.type = 1
+        if new_pass.type == 1:
+            new_pass.position = get_train_target_at_door()
         $Passagiere.add_child(new_pass)
+
+func game_over(victory: bool):
+    if game_state == GameState.GAME_OVER:
+        return
+    game_state = GameState.GAME_OVER
+    print("Game Over")
+    $UI/Countdown/TimerNextLevel.stop()
+
+func shake_tween(object):
+    var tween = create_tween()
+    tween.set_ease(Tween.EASE_IN_OUT)
+    tween.tween_property(object, "scale", Vector2(2,2), 0.5)
+    tween.tween_property(object, "scale", Vector2(1,1), 0.5)
+    tween.tween_property(object, "scale", Vector2(2,2), 0.5)
+    tween.tween_property(object, "scale", Vector2(1,1), 0.5)
+    tween.tween_property(object, "scale", Vector2(2,2), 0.5)
+    tween.tween_property(object, "scale", Vector2(1,1), 0.5)

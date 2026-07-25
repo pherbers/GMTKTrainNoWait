@@ -3,6 +3,7 @@
 [node name="ReactHappy" type="Node2D" unique_id=1378639200]
 
 [node name="Label" type="Label" parent="." unique_id=1225589440]
+visible = false
 modulate = Color(0.21908304, 0.47280264, 0, 1)
 offset_left = -5.0
 offset_top = -33.0

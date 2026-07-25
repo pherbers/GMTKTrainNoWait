@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://b6fj5pgg0r4hc"]
 
+[ext_resource type="Texture2D" uid="uid://dyk1rjbxickbq" path="res://sprites/pissed.png" id="1_n8jrq"]
+
 [node name="ReactPissed" type="Node2D" unique_id=1378639200]
 
 [node name="Label" type="Label" parent="." unique_id=1225589440]
+visible = false
 modulate = Color(0.75103694, 0, 0.19591191, 1)
 offset_left = -5.0
 offset_top = -33.0
@@ -14,5 +17,10 @@ text = "--"
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1813056250]
+z_index = 1
+position = Vector2(0, -8)
+texture = ExtResource("1_n8jrq")
 
 [connection signal="timeout" from="Timer" to="." method="queue_free"]
