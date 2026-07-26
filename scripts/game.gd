@@ -15,8 +15,8 @@ enum GameState { MAIN_MENU, NEXT_LEVEL, PLAY, DEPART, GAME_OVER }
 @export var train_spawns = 10
 @export var platform_spawns = 10
 
-@export var train_spawns_round =    [6, 7, 10,  5, 9, 7, 11, 15, 17, 5]
-@export var platform_spawns_round = [6, 7,  6, 11, 7, 9,  9, 17, 15, 18]
+@export var train_spawns_round =    [6, 7, 10,  5, 9, 7, 11, 15, 15, 5]
+@export var platform_spawns_round = [6, 7,  6, 11, 7, 9,  9, 15, 13, 16]
 
 @export var round_ = 0
 @export var max_rounds = 10
@@ -27,7 +27,7 @@ var pissed_people = 0
         score = val
         update_score()
 
-@export var pissometer = 0:
+@export var pissometer = 5:
     set(val):
         pissometer = val
         update_score()
@@ -43,10 +43,11 @@ func _ready():
     spawn_platform()
 
 func _input(event):
-    if event.is_action("StartGame") and game_state == GameState.MAIN_MENU:
-        start_game()
-    if event.is_action("StartGame") and game_state == GameState.GAME_OVER:
-        get_tree().reload_current_scene()
+    if event.is_pressed():
+        if event.is_action("StartGame") and game_state == GameState.MAIN_MENU:
+            start_game()
+        if event.is_action("StartGame") and game_state == GameState.GAME_OVER:
+            get_tree().reload_current_scene()
 
 func start_game():
     $UI/Rounds/RoundsLabel.text = str(round_) + "/" + str(max_rounds)
@@ -140,7 +141,7 @@ func train_depart():
     $UI/Countdown/TimerBetweenRounds.start()
     print(str(pissed_people) + " people are pissed")
     if pissed_people > 0:
-        pissometer = clamp(pissometer + min(pissed_people, 6), 0, max_piss)
+        pissometer = clamp(pissometer + min(pissed_people, 6) - 1, 0, max_piss)
         shake_tween($UI/Pissometer/Pissed)
     else:
         pissometer = clamp(pissometer - 3, 0, max_piss)
