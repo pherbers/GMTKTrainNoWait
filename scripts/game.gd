@@ -38,6 +38,7 @@ var clean_rounds = 0
 
 func _ready():
     $UI/Rounds/RoundsLabel.text = str(round_) + "/" + str(max_rounds)
+    $Train/AnimationPlayer.play_section("train_depart", 5, 10)
     spawn_platform()
 
 func _process(delta):
@@ -112,13 +113,13 @@ func get_train_target_at_door():
 
 func close_doors():
     # close doors
-    $Doors/DoorAnim.play("doors_close")
+    $Train/Doors/DoorAnim.play("doors_close")
 
 func train_depart():
     for p in passagiere:
         p.set_wait()
     game_state = GameState.DEPART
-    $UI/Countdown/TimerNextLevel.start()
+    $UI/Countdown/TimerNextLevel.start(10)
     print(str(pissed_people) + " people are pissed")
     if pissed_people > 0:
         pissometer = clamp(pissometer + min(pissed_people, 6), 0, max_piss)
@@ -155,7 +156,7 @@ func train_arrive():
         else:
             p.look_alive()
     spawn_train()
-    $Doors/DoorAnim.play("doors_open")
+    $Train/Doors/DoorAnim.play("doors_open")
     $UI/Countdown/TimerDepart.start()
     $UI/Countdown/TimerDoor.start()
 
