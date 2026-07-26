@@ -11,7 +11,7 @@ Made by *Quaternionessenz*:
 
 Audio Credits:
 
-- (https://freesound.org/people/tommon/sounds/40754/)[Whistle Sound] by tommon (CC BY-NC 3.0) 
-- (https://freesound.org/people/Manicciola/sounds/173311/)[Subway Sounds] by Manicciola (CC BY 4.0)
-- (https://freesound.org/people/InspectorJ/sounds/394411/)[Trains Station Ambience] by InspectorJ (CC BY 4.0)
-- (https://freesound.org/people/jrosin/sounds/209969/)[Train Door Sounds] by jrosin (CC0)
+- [Whistle Sound](https://freesound.org/people/tommon/sounds/40754/) by tommon (CC BY-NC 3.0) 
+- [Subway Sounds](https://freesound.org/people/Manicciola/sounds/173311/) by Manicciola (CC BY 4.0)
+- [Trains Station Ambience](https://freesound.org/people/InspectorJ/sounds/394411/) by InspectorJ (CC BY 4.0)
+- [Train Door Sounds](https://freesound.org/people/jrosin/sounds/209969/) by jrosin (CC0)
