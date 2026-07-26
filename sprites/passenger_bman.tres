@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://r61yctanev34"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://xvn3un5wqpxm"]
 
 [ext_resource type="Texture2D" uid="uid://kbvp5ydpw8v4" path="res://sprites/business_guy.png" id="1_yo8we"]
 
@@ -28,7 +28,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_db3gf")
 }],
-"loop": 1,
+"loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -45,7 +45,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d2ura")
 }],
-"loop": 1,
+"loop": true,
 "name": &"walk",
 "speed": 5.0
 }]

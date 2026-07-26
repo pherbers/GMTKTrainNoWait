@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bisywt7bp5ljh" path="res://scripts/passagier.gd" id="1_cgbyl"]
 [ext_resource type="Texture2D" uid="uid://0rqr888286o1" path="res://sprites/halo.png" id="2_vgm3e"]
-[ext_resource type="SpriteFrames" uid="uid://r61yctanev34" path="res://sprites/passenger_bman.tres" id="3_5n8ah"]
+[ext_resource type="SpriteFrames" uid="uid://xvn3un5wqpxm" path="res://sprites/passenger_bman.tres" id="3_5n8ah"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4lrl6"]
 radius = 8.0
@@ -18,8 +18,8 @@ linear_damp = 64.0
 script = ExtResource("1_cgbyl")
 
 [node name="Halo" type="Sprite2D" parent="." unique_id=318205501]
-position = Vector2(0, -27)
 texture = ExtResource("2_vgm3e")
+offset = Vector2(0, -27)
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=2079182370]
 y_sort_enabled = true

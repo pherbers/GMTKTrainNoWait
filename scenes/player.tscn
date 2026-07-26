@@ -37,6 +37,7 @@ collision_mask = 9
 script = ExtResource("1_g2els")
 
 [node name="ArmU" type="CollisionShape2D" parent="." unique_id=1748231998]
+visible = false
 y_sort_enabled = true
 position = Vector2(0, -12)
 rotation = -1.5707964
@@ -60,6 +61,7 @@ autoplay = "idle"
 offset = Vector2(0, -27)
 
 [node name="ArmR" type="CollisionShape2D" parent="." unique_id=826816581]
+visible = false
 y_sort_enabled = true
 position = Vector2(16, 0)
 shape = SubResource("RectangleShape2D_8mm7a")
@@ -71,6 +73,7 @@ texture = SubResource("AtlasTexture_21wjq")
 offset = Vector2(0, -27)
 
 [node name="ArmL" type="CollisionShape2D" parent="." unique_id=1864666749]
+visible = false
 y_sort_enabled = true
 position = Vector2(-16, 0)
 shape = SubResource("RectangleShape2D_8mm7a")
@@ -82,6 +85,7 @@ texture = SubResource("AtlasTexture_qlg0r")
 offset = Vector2(0, -27)
 
 [node name="ArmD" type="CollisionShape2D" parent="." unique_id=768765992]
+visible = false
 y_sort_enabled = true
 position = Vector2(0, 12)
 rotation = -1.5707964

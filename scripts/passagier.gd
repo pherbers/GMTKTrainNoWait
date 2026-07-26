@@ -2,7 +2,7 @@ extends RigidBody2D
 
 class_name Passagier
 
-enum PState {WAIT_PLATFORM, WAIT_TRAIN, ENTER, EXIT, LEAVE}
+enum PState {WAIT_PLATFORM, WAIT_TRAIN_DEPART, WAIT_TRAIN_ARRIVE, ENTER, EXIT, LEAVE}
 @export var state: PState
 
 @onready var game: Game = $/root/Game
@@ -12,7 +12,7 @@ var walk_force = 2000.
 
 @onready var train_area: Area2D = $/root/Game/TrainArea
 @onready var sprite: AnimatedSprite2D = $Sprite2D
-    
+
 var push_force: Vector2
 var crowd_size: int
 
@@ -26,10 +26,10 @@ func _ready():
     game.passagiere.append(self)
     $NavigationAgent2D/Timer.start(randf())
     $NavigationAgent2D/Timer.wait_time = 1
-    
+
     update_visuals()
     update_nav_target()
-    
+
     if type == PType.OLD:
         walk_force /= 2
         sprite.speed_scale = 0.5
@@ -40,6 +40,7 @@ func _ready():
         walk_force *= 2
         sprite.speed_scale = 1.5
         sprite.modulate = Color.ROSY_BROWN
+    sprite.animation = "idle"
 
 func _physics_process(_delta):
     apply_central_force(push_force)
@@ -59,7 +60,7 @@ func _physics_process(_delta):
     if dists < 1:
         walk_force_mod *= dists
         sprite.animation = "idle"
-    else:
+    elif state != PState.WAIT_TRAIN_DEPART or state != PState.WAIT_TRAIN_ARRIVE:
         sprite.animation = "walk"
         if navdir.x < -0.2:
             sprite.flip_h = true
@@ -68,11 +69,7 @@ func _physics_process(_delta):
     apply_force(navdir * walk_force * walk_force_mod)
 
 func _exit_tree():
-    if game:
-        var i = game.passagiere.find(self)
-        if i >= 0:
-            game.passagiere.remove_at(i)
-
+    pass
 
 func push(force):
     push_force += force
@@ -84,13 +81,13 @@ func repath():
 func set_wait():
     if state == PState.LEAVE:
         return
-    if is_in_train():
+    if is_in_train() and state != PState.WAIT_TRAIN_ARRIVE:
         if state == PState.EXIT:
             # could not exit, pissed
             react_pissed()
         else:
             react_happy()
-        state = PState.WAIT_TRAIN
+        set_wait_train()
     else:
         if state == PState.ENTER:
             # could not enter, pissed
@@ -101,6 +98,14 @@ func set_wait():
     update_visuals()
     update_nav_target()
 
+
+func set_wait_train():
+    state = PState.WAIT_TRAIN_DEPART
+    var train = $/root/Game/Train/Viz/Passengers
+    get_parent().remove_child(self)
+    train.add_child(self)
+
+
 func is_in_train() -> bool:
     return train_area.overlaps_body(self)
 
@@ -109,7 +114,7 @@ func react_pissed():
     game.pissed_people += 1
     var piss = preload("res://scenes/react_pissed.tscn").instantiate()
     piss.find_child("Label").text = "" + str(points_pissed)
-    
+
     if is_in_train():
         piss.position = Vector2(randi_range(-100, 100), -96)
         game.add_child(piss)
@@ -117,7 +122,7 @@ func react_pissed():
     else:
         piss.position = Vector2(0, -48)
         add_child(piss)
-    
+
 func react_happy():
     game.score += points_happy
     var happy = preload("res://scenes/react_happy.tscn").instantiate()
@@ -128,11 +133,14 @@ func react_happy():
 func look_alive():
     if state == PState.LEAVE:
         return
-    if is_in_train():
+    if state == PState.WAIT_TRAIN_ARRIVE:
         state = PState.EXIT
+        var passnode = $/root/Game/Passagiere
+        get_parent().remove_child(self)
+        passnode.add_child(self)
     else:
         state = PState.ENTER
-    
+
     update_visuals()
     update_nav_target()
 
@@ -141,10 +149,16 @@ func leave_station():
         update_nav_target()
         return
     state = PState.LEAVE
-    nav.navigation_finished.connect(queue_free)
+    nav.navigation_finished.connect(despawn)
     update_nav_target()
     update_visuals()
 
+func despawn():
+    if game:
+        var i = game.passagiere.find(self)
+        if i >= 0:
+            game.passagiere.remove_at(i)
+    queue_free()
 func update_visuals():
     if state == PState.ENTER:
         $Halo.visible = true
@@ -156,9 +170,13 @@ func update_visuals():
         $Halo.visible = false
     elif state == PState.WAIT_PLATFORM:
         $Halo.visible = false
-    elif state == PState.WAIT_TRAIN:
+    elif state == PState.WAIT_TRAIN_DEPART:
+        sprite.animation = "idle"
         $Halo.visible = false
-        
+    elif state == PState.WAIT_TRAIN_ARRIVE:
+        $Halo.visible = false
+        sprite.animation = "idle"
+
 func update_nav_target():
     if state == PState.ENTER:
         nav.target_position = game.get_train_target()
@@ -169,6 +187,8 @@ func update_nav_target():
     elif state == PState.WAIT_PLATFORM:
         if nav.target_position.distance_to(position) > 10:
             nav.target_position = game.get_platform_target()
-    elif state == PState.WAIT_TRAIN:
-        nav.target_position = game.get_train_target()
-    
+    elif state == PState.WAIT_TRAIN_DEPART:
+        pass
+    elif state == PState.WAIT_TRAIN_ARRIVE:
+        pass
+        #nav.target_position = game.get_train_target()
