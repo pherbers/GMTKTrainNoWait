@@ -30,6 +30,7 @@ func _ready():
     update_visuals()
     update_nav_target()
 
+    sprite.animation = "idle"
     if type == PType.OLD:
         walk_force /= 2
         sprite.speed_scale = 0.5
@@ -39,8 +40,9 @@ func _ready():
     if type == PType.AGRESSIVE:
         walk_force *= 2
         sprite.speed_scale = 1.5
-        sprite.modulate = Color.ROSY_BROWN
-    sprite.animation = "idle"
+        sprite.sprite_frames = preload("res://sprites/passenger_bfman.tres")
+        sprite.animation = "idle"
+        sprite.play()
 
 func _physics_process(_delta):
     apply_central_force(push_force)
@@ -60,8 +62,9 @@ func _physics_process(_delta):
     if dists < 1:
         walk_force_mod *= dists
         sprite.animation = "idle"
-    elif state != PState.WAIT_TRAIN_DEPART or state != PState.WAIT_TRAIN_ARRIVE:
-        sprite.animation = "walk"
+    else:
+        if state != PState.WAIT_TRAIN_DEPART and state != PState.WAIT_TRAIN_ARRIVE:
+            sprite.animation = "walk"
         if navdir.x < -0.2:
             sprite.flip_h = true
         if navdir.x > 0.2:

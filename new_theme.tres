@@ -1,7 +1,25 @@
 [gd_resource type="Theme" format=3 uid="uid://ccvm80hxp88l7"]
 
 [ext_resource type="FontFile" uid="uid://csyfrg2o88haq" path="res://pixelmix_bold.ttf" id="1_amlv4"]
+[ext_resource type="Texture2D" uid="uid://6jsn7uweoj5i" path="res://sprites/bar.png" id="1_i7eh4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u0fll"]
+texture = ExtResource("1_i7eh4")
+texture_margin_left = 12.0
+texture_margin_right = 6.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k67gn"]
+bg_color = Color(0.5382717, 0.19179356, 0.21704426, 1)
+border_width_left = 11
+border_width_top = 9
+border_width_right = 11
+border_width_bottom = 10
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 4
 
 [resource]
 default_font = ExtResource("1_amlv4")
 default_font_size = 12
+ProgressBar/styles/background = SubResource("StyleBoxTexture_u0fll")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_k67gn")

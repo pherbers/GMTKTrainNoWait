@@ -15,8 +15,8 @@ enum GameState { MAIN_MENU, NEXT_LEVEL, PLAY, DEPART, GAME_OVER }
 @export var train_spawns = 10
 @export var platform_spawns = 10
 
-@export var train_spawns_round = [6, 7, 10, 5, 8, 5, 15, 15, 20, 15]
-@export var platform_spawns_round = [6, 7, 6, 11, 7, 8, 10, 16, 16, 23]
+@export var train_spawns_round =    [6, 7, 10,  5, 9, 7, 11, 15, 17, 5]
+@export var platform_spawns_round = [6, 7,  6, 11, 7, 9,  9, 17, 15, 18]
 
 @export var round_ = 0
 @export var max_rounds = 10
@@ -54,6 +54,7 @@ func start_game():
     $UI/Countdown/TimerNextLevel.start()
     $UI/MainMenu.visible = false
     $UI/Pissometer.visible = true
+    $Clock.time_left = 4. + 15.
     between_rounds()
 
 func _process(delta):
@@ -154,6 +155,8 @@ func train_depart():
         player.death()
 
     spawn_platform()
+    $Clock.reset_clock()
+    $Clock.hour += 1
 
 func between_rounds():
     print("Between rounds")
@@ -247,7 +250,7 @@ func game_over(victory: bool):
         $UI/GameOverMenu/Victory/Round2.text = str(clean_rounds) + "/" + str(max_rounds)
     else:
         $UI/GameOverMenu/Fail.visible = true
-        $UI/GameOverMenu/Victory/Round2.text = str(round_) + "/" + str(max_rounds)
+        $UI/GameOverMenu/Fail/Round.text = str(round_) + "/" + str(max_rounds)
 
 func shake_tween(object):
     var tween = create_tween()

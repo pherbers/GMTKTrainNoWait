@@ -22,15 +22,21 @@
 [ext_resource type="Texture2D" uid="uid://fwt7icufc81j" path="res://sprites/victory.png" id="12_si52b"]
 [ext_resource type="AudioStream" uid="uid://b7qggqi8ep0iq" path="res://audio/train_whistle.wav" id="14_adb74"]
 [ext_resource type="AudioStream" uid="uid://cfdo17mscered" path="res://audio/ambience_train_station.ogg" id="16_01n6w"]
+[ext_resource type="Texture2D" uid="uid://c3w7j8io212ec" path="res://sprites/clock.png" id="23_58gk3"]
+[ext_resource type="Script" uid="uid://b0diolutw3ow0" path="res://scripts/clock.gd" id="23_u0fll"]
+[ext_resource type="Texture2D" uid="uid://bgytx1q54u6po" path="res://sprites/clockarm.png" id="25_6p3nn"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8mm7a"]
-vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.4375, -18.796875, 475.21094, -18.007813, 301.92188, -18.1875, 21, -64, 302.3828, -64, -301.21875, -123, -301.8672, -210.96875, 303.82813, -210.02344, -16, -123, -300.78125, -64, -16, -64, 21, -123, 302.96094, -123)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 5, 3), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(3, 12, 13), PackedInt32Array(6, 3, 13), PackedInt32Array(14, 6, 13, 11), PackedInt32Array(14, 11, 10), PackedInt32Array(14, 10, 15)])
+vertices = PackedVector2Array(301.92188, -18.1875, 475.21094, -18.007813, 479.77344, 315.03125, 209, 112, 209, 65, -490.96094, 316.96094, 165, 112, -469.96094, -18.976563, -300.4375, -18.796875, 165, 65, 21, -64, 302.3828, -64, -301.21875, -123, -301.8672, -210.96875, 303.82813, -210.02344, -16, -123, -300.78125, -64, -16, -64, 21, -123, 302.96094, -123)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(3, 2, 5, 6), PackedInt32Array(6, 5, 7, 8, 9), PackedInt32Array(10, 11, 0, 4, 9, 8), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(8, 16, 17), PackedInt32Array(10, 8, 17), PackedInt32Array(18, 10, 17, 15), PackedInt32Array(18, 15, 14), PackedInt32Array(18, 14, 19)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-318, -227, 320, -226, 316, 174, -315, 175), PackedVector2Array(-485, -35, 491, -34, 496, 331, -508, 333)])
 agent_radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hq1ik"]
 size = Vector2(288, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai7j4"]
+size = Vector2(12, 15)
 
 [sub_resource type="Animation" id="Animation_6wevv"]
 length = 0.001
@@ -374,18 +380,19 @@ train_spawns = 6
 platform_spawns = 6
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1781995184]
+position = Vector2(0, -64)
 
 [node name="Player" parent="." unique_id=354621453 instance=ExtResource("2_gubc5")]
-position = Vector2(107, 23)
+position = Vector2(117, 22)
 disable_mode = 1
 
 [node name="Passagiere" type="Node2D" parent="." unique_id=450337304]
 y_sort_enabled = true
 
 [node name="Environment" type="Node2D" parent="." unique_id=113889310]
+visible = false
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Environment" unique_id=838315524]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_8mm7a")
 
 [node name="Train" type="StaticBody2D" parent="Environment/NavigationRegion2D" unique_id=1396468835]
@@ -397,6 +404,13 @@ shape = SubResource("RectangleShape2D_hq1ik")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Environment/NavigationRegion2D/Train" unique_id=449092821]
 position = Vector2(181, -93.5)
 shape = SubResource("RectangleShape2D_hq1ik")
+
+[node name="ClockBlock" type="StaticBody2D" parent="Environment/NavigationRegion2D" unique_id=790092896]
+position = Vector2(187, 86)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/NavigationRegion2D/ClockBlock" unique_id=2024482507]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_ai7j4")
 
 [node name="Background" type="Node2D" parent="." unique_id=706924054]
 y_sort_enabled = true
@@ -678,7 +692,7 @@ position = Vector2(-55, -141)
 [node name="DoorSpawn19" type="Node2D" parent="Spawns/Train" unique_id=159493026]
 position = Vector2(-55, -174)
 
-[node name="DoorSpawn20" type="Node2D" parent="Spawns/Train" unique_id=449775455]
+[node name="Spawn20" type="Node2D" parent="Spawns/Train" unique_id=449775455]
 position = Vector2(-55, -194)
 
 [node name="DoorSpawn21" type="Node2D" parent="Spawns/Train" unique_id=1848696651]
@@ -690,7 +704,7 @@ position = Vector2(-18, -141)
 [node name="DoorSpawn23" type="Node2D" parent="Spawns/Train" unique_id=2127662250]
 position = Vector2(-18, -174)
 
-[node name="DoorSpawn24" type="Node2D" parent="Spawns/Train" unique_id=1921721323]
+[node name="Spawn24" type="Node2D" parent="Spawns/Train" unique_id=1921721323]
 position = Vector2(-18, -194)
 
 [node name="DoorSpawn25" type="Node2D" parent="Spawns/Train" unique_id=1415828537]
@@ -702,7 +716,7 @@ position = Vector2(19, -141)
 [node name="DoorSpawn27" type="Node2D" parent="Spawns/Train" unique_id=466672636]
 position = Vector2(19, -174)
 
-[node name="DoorSpawn28" type="Node2D" parent="Spawns/Train" unique_id=1704225414]
+[node name="Spawn28" type="Node2D" parent="Spawns/Train" unique_id=1704225414]
 position = Vector2(19, -194)
 
 [node name="DoorSpawn29" type="Node2D" parent="Spawns/Train" unique_id=407828818]
@@ -714,7 +728,7 @@ position = Vector2(59, -141)
 [node name="DoorSpawn31" type="Node2D" parent="Spawns/Train" unique_id=555359278]
 position = Vector2(59, -174)
 
-[node name="DoorSpawn32" type="Node2D" parent="Spawns/Train" unique_id=1736793598]
+[node name="Spawn32" type="Node2D" parent="Spawns/Train" unique_id=1736793598]
 position = Vector2(59, -194)
 
 [node name="Spawn34" type="Node2D" parent="Spawns/Train" unique_id=223371784]
@@ -737,6 +751,7 @@ position = Vector2(224, -141)
 
 [node name="UI" type="Node2D" parent="." unique_id=331326640]
 z_index = 2
+position = Vector2(0, -64)
 
 [node name="Rounds" type="Node2D" parent="UI" unique_id=569099933]
 position = Vector2(213, -179)
@@ -838,7 +853,9 @@ offset_left = -61.0
 offset_top = -12.0
 offset_right = 67.0
 offset_bottom = 15.0
+theme = ExtResource("12_r6p65")
 max_value = 10.0
+value = 5.0
 show_percentage = false
 
 [node name="MainMenu" type="Node2D" parent="UI" unique_id=284507802]
@@ -1009,6 +1026,35 @@ stream = ExtResource("16_01n6w")
 volume_db = -20.0
 autoplay = true
 parameters/looping = true
+
+[node name="Clock" type="Node2D" parent="." unique_id=1199527472]
+y_sort_enabled = true
+position = Vector2(187, 86)
+script = ExtResource("23_u0fll")
+
+[node name="Clock2" type="Sprite2D" parent="Clock" unique_id=2143477301]
+y_sort_enabled = true
+position = Vector2(0, 2)
+texture = ExtResource("23_58gk3")
+offset = Vector2(0, -32)
+
+[node name="ClockarmL" type="Node2D" parent="Clock" unique_id=1682243558]
+position = Vector2(-0.5, -52.5)
+
+[node name="Clockarm" type="Sprite2D" parent="Clock/ClockarmL" unique_id=2047831178]
+z_index = 1
+texture = ExtResource("25_6p3nn")
+offset = Vector2(0.5, 17.5)
+
+[node name="ClockarmS" type="Node2D" parent="Clock" unique_id=1588163349]
+position = Vector2(-0.5, -52.5)
+rotation = 3.6075957
+
+[node name="Clockarm" type="Sprite2D" parent="Clock/ClockarmS" unique_id=159238982]
+z_index = 1
+scale = Vector2(1, 0.6)
+texture = ExtResource("25_6p3nn")
+offset = Vector2(0.5, 17.5)
 
 [connection signal="animation_finished" from="Train/Doors/DoorAnim" to="Train/Doors/DoorAnim" method="stop" unbinds=1 binds= [true]]
 [connection signal="timeout" from="UI/Countdown/TimerDepart" to="." method="train_depart"]
