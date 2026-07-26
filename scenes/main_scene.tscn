@@ -7,14 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://c675226kjjpnd" path="res://sprites/traintracks.png" id="4_r6p65"]
 [ext_resource type="Script" uid="uid://djmbgg51xnsqf" path="res://scripts/countdown.gd" id="5_c1pb6"]
 [ext_resource type="Texture2D" uid="uid://bn3sim54cygaj" path="res://sprites/train_floor.png" id="5_e1cbu"]
+[ext_resource type="AudioStream" uid="uid://dmwfj7vxin8yg" path="res://audio/train_arrive.wav" id="5_k6f3i"]
 [ext_resource type="Texture2D" uid="uid://dyk1rjbxickbq" path="res://sprites/pissed.png" id="5_rt2n2"]
 [ext_resource type="Texture2D" uid="uid://bckpkjbfh30l" path="res://sprites/happy.png" id="6_c16ls"]
 [ext_resource type="Script" uid="uid://cu1bx8rksc6yn" path="res://scripts/cheat_manager.gd" id="6_rt2n2"]
+[ext_resource type="AudioStream" uid="uid://d217y5u1cyhx7" path="res://audio/train_depart.wav" id="6_xdqt8"]
+[ext_resource type="AudioStream" uid="uid://chrc1bm1bmbvg" path="res://audio/train_idle.wav" id="7_xdqt8"]
 [ext_resource type="Texture2D" uid="uid://bc4nmh2touwum" path="res://sprites/doors.png" id="9_mngbo"]
+[ext_resource type="AudioStream" uid="uid://bslxwahtrekot" path="res://audio/doors_close.wav" id="10_adb74"]
 [ext_resource type="Texture2D" uid="uid://djo4sok6eldjj" path="res://sprites/main_menu.png" id="10_e1cbu"]
 [ext_resource type="Texture2D" uid="uid://dxprehula0yus" path="res://sprites/game_over.png" id="11_4w45t"]
+[ext_resource type="AudioStream" uid="uid://vlasf2mkld5w" path="res://audio/door_open.wav" id="11_58gk3"]
 [ext_resource type="Theme" uid="uid://ccvm80hxp88l7" path="res://new_theme.tres" id="12_r6p65"]
 [ext_resource type="Texture2D" uid="uid://fwt7icufc81j" path="res://sprites/victory.png" id="12_si52b"]
+[ext_resource type="AudioStream" uid="uid://b7qggqi8ep0iq" path="res://audio/train_whistle.wav" id="14_adb74"]
+[ext_resource type="AudioStream" uid="uid://cfdo17mscered" path="res://audio/ambience_train_station.ogg" id="16_01n6w"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8mm7a"]
 vertices = PackedVector2Array(479.77344, 315.03125, -490.96094, 316.96094, -469.96094, -18.976563, -300.4375, -18.796875, 475.21094, -18.007813, 301.92188, -18.1875, 21, -64, 302.3828, -64, -301.21875, -123, -301.8672, -210.96875, 303.82813, -210.02344, -16, -123, -300.78125, -64, -16, -64, 21, -123, 302.96094, -123)
@@ -78,7 +85,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_e1cbu"]
 resource_name = "train_arrive"
-length = 4.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -115,6 +122,36 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TrainArrive")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_k6f3i")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DoorOpen")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_58gk3")
+}],
+"times": PackedFloat32Array(4.0333333)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_mngbo"]
 resource_name = "train_depart"
@@ -454,6 +491,19 @@ offset = Vector2(0, -32)
 [node name="DoorAnim" type="AnimationPlayer" parent="Train/Doors" unique_id=233755270]
 libraries/ = SubResource("AnimationLibrary_7ycvg")
 
+[node name="TrainArrive" type="AudioStreamPlayer" parent="Train" unique_id=249720660]
+
+[node name="TrainDepart" type="AudioStreamPlayer" parent="Train" unique_id=704666241]
+stream = ExtResource("6_xdqt8")
+
+[node name="TrainIdle" type="AudioStreamPlayer" parent="Train" unique_id=1575631379]
+stream = ExtResource("7_xdqt8")
+
+[node name="DoorsClose" type="AudioStreamPlayer" parent="Train" unique_id=1550529095]
+stream = ExtResource("10_adb74")
+
+[node name="DoorOpen" type="AudioStreamPlayer" parent="Train" unique_id=908970081]
+
 [node name="Spawns" type="Node2D" parent="." unique_id=540522153]
 position = Vector2(0, -140)
 
@@ -733,9 +783,16 @@ one_shot = true
 wait_time = 15.0
 one_shot = true
 
+[node name="TimerWhistle" type="Timer" parent="UI/Countdown" unique_id=104512800]
+wait_time = 13.0
+one_shot = true
+
 [node name="TimerNextLevel" type="Timer" parent="UI/Countdown" unique_id=1810757391]
 wait_time = 4.0
 one_shot = true
+
+[node name="TrainWhistle" type="AudioStreamPlayer" parent="UI/Countdown" unique_id=1555869298]
+stream = ExtResource("14_adb74")
 
 [node name="TimerBetweenRounds" type="Timer" parent="UI/Countdown" unique_id=532321787]
 wait_time = 6.0
@@ -945,9 +1002,21 @@ shape = SubResource("RectangleShape2D_cfrsm")
 script = ExtResource("6_rt2n2")
 cheat_trigger = "käfir"
 
+[node name="Audio" type="Node2D" parent="." unique_id=980438943]
+
+[node name="AmbienceTrainStation" type="AudioStreamPlayer" parent="Audio" unique_id=1715629394]
+stream = ExtResource("16_01n6w")
+volume_db = -20.0
+autoplay = true
+parameters/looping = true
+
 [connection signal="animation_finished" from="Train/Doors/DoorAnim" to="Train/Doors/DoorAnim" method="stop" unbinds=1 binds= [true]]
 [connection signal="timeout" from="UI/Countdown/TimerDepart" to="." method="train_depart"]
+[connection signal="timeout" from="UI/Countdown/TimerDepart" to="Train/TrainDepart" method="play"]
 [connection signal="timeout" from="UI/Countdown/TimerDepart" to="Train/AnimationPlayer" method="play" binds= ["train_depart"]]
 [connection signal="timeout" from="UI/Countdown/TimerDoor" to="." method="close_doors"]
+[connection signal="timeout" from="UI/Countdown/TimerDoor" to="Train/DoorsClose" method="play"]
+[connection signal="timeout" from="UI/Countdown/TimerWhistle" to="UI/Countdown/TrainWhistle" method="play"]
 [connection signal="timeout" from="UI/Countdown/TimerNextLevel" to="." method="train_arrive"]
+[connection signal="timeout" from="UI/Countdown/TimerNextLevel" to="Train/TrainIdle" method="play"]
 [connection signal="timeout" from="UI/Countdown/TimerBetweenRounds" to="." method="between_rounds"]

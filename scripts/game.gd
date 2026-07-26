@@ -184,6 +184,7 @@ func train_arrive():
     $Train/Doors/DoorAnim.play("doors_open")
     $UI/Countdown/TimerDepart.start()
     $UI/Countdown/TimerDoor.start()
+    $UI/Countdown/TimerWhistle.start()
 
 func spawn_platform():
     var platform_count = 0
